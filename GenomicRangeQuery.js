@@ -38,22 +38,7 @@ function solution(S, P, Q) {
   for (let j = 0; j < P.length; j++) {
     const indexp = P[j];
     const indexq = Q[j];
-    if (indexp === indexq) {
-      switch (S[indexp]) {
-        case "A":
-          result.push(1);
-          break;
-        case "C":
-          result.push(2);
-          break;
-        case "G":
-          result.push(3);
-          break;
-        default:
-          result.push(4);
-          break;
-      }
-    } else if ((countA[indexp - 1] || 0) - countA[indexq] !== 0) {
+    if ((countA[indexp - 1] || 0) - countA[indexq] !== 0) {
       result.push(1);
     } else if ((countC[indexp - 1] || 0) - countC[indexq] !== 0) {
       result.push(2);
