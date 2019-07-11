@@ -1,31 +1,55 @@
 // you can write to stdout for debugging purposes, e.g.
 // console.log('this is a debug message');
 
-// fails performance
 function solution(S, P, Q) {
-  const impact = {
-    A: 1,
-    C: 2,
-    G: 3,
-    T: 4
-  };
-  //   let I = [];
-  //   for (let i = 0; i < S.length; i++) {
-  //     I.push(impact[S[i]]);
-  //   }
+  const countA = [];
+  const countC = [];
+  const countG = [];
+  const countT = [];
+  for (let i = 0; i < S.length; i++) {
+    switch (S[i]) {
+      case "A":
+        countA.push((countA[i - 1] || 0) + 1);
+        countC.push(countC[i - 1] || 0);
+        countG.push(countG[i - 1] || 0);
+        countT.push(countT[i - 1] || 0);
+        break;
+      case "C":
+        countC.push((countC[i - 1] || 0) + 1);
+        countA.push(countA[i - 1] || 0);
+        countG.push(countG[i - 1] || 0);
+        countT.push(countT[i - 1] || 0);
+        break;
+      case "G":
+        countG.push((countG[i - 1] || 0) + 1);
+        countC.push(countC[i - 1] || 0);
+        countA.push(countA[i - 1] || 0);
+        countT.push(countT[i - 1] || 0);
+        break;
+      default:
+        countT.push((countT[i - 1] || 0) + 1);
+        countC.push(countC[i - 1] || 0);
+        countG.push(countG[i - 1] || 0);
+        countA.push(countA[i - 1] || 0);
+        break;
+    }
+  }
   let result = [];
   for (let j = 0; j < P.length; j++) {
-    const p = P[j];
-    const q = Q[j];
-    let min = Math.min(impact[S[p]], impact[S[q]]);
-    for (let i = p; i <= q; i++) {
-      const imp = impact[S[i]];
-      min = Math.min(min, imp);
+    const indexp = P[j];
+    const indexq = Q[j];
+    if (countA[indexp] - countA[indexq] !== 0) {
+      result.push(1);
+    } else if (countC[indexp] - countC[indexq] !== 0) {
+      result.push(2);
+    } else if (countG[indexp] - countG[indexq] !== 0) {
+      result.push(3);
+    } else {
+      result.push(4);
     }
-    result.push(min);
   }
   return result;
 }
 
-// let a = solution("CAGCCTA", [2, 5, 0], [4, 5, 6]);
-// a; // [2,4,1]
+let a = solution("CAGCCTA", [2, 5, 0], [4, 5, 6]);
+a; // [2,4,1]
