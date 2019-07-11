@@ -36,8 +36,8 @@ function solution(U, L, C) {
         break;
     }
   }
-  if (un <= U && ln <= L) return u + "," + l;
-  if (ln <= U && un <= L) return l + "," + u;
+  if (un === U && ln === L) return u + "," + l;
+  if (ln === U && un === L) return l + "," + u;
   return "IMPOSSIBLE";
 }
 
@@ -53,26 +53,26 @@ function randomNumber(min, max) {
   return Math.random() * (+max - +min) + +min;
 }
 
-let top = shuffleArray(
-  Array(5)
-    .fill()
-    .map((_, i) => Math.round(randomNumber(0, 1)))
-);
-let bot = shuffleArray(
-  Array(5)
-    .fill()
-    .map((_, i) => Math.round(randomNumber(0, 1)))
-);
-top = [0, 0, 1, 1, 1];
-bot = [1, 1, 1, 0, 1];
+// let top = shuffleArray(
+//   Array(5)
+//     .fill()
+//     .map((_, i) => Math.round(randomNumber(0, 1)))
+// );
+// let bot = shuffleArray(
+//   Array(5)
+//     .fill()
+//     .map((_, i) => Math.round(randomNumber(0, 1)))
+// );
+// top = [0, 0, 1, 1, 1];
+// bot = [1, 1, 1, 0, 1];
 // bot
 // top = [1,1,0,0,1]
 // bot = [1,0,1,0,0]
-let c = top.map((v, i) => v + bot[i]);
-c;
-let u = top.reduce((acc, val) => acc + val, 0);
-u;
-let l = bot.reduce((acc, val) => acc + val, 0);
-l;
-console.log(solution(u, l, c));
-console.log(solution(2, 3, [0, 0, 1, 1, 2]));
+// let c = top.map((v, i) => v + bot[i]);
+// c;
+// let u = top.reduce((acc, val) => acc + val, 0);
+// u;
+// let l = bot.reduce((acc, val) => acc + val, 0);
+// l;
+// console.log(solution(u, l, c));
+// console.log(solution(2, 3, [0, 0, 1, 1, 2]));
