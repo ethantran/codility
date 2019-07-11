@@ -3,41 +3,55 @@
 
 function solution(U, L, C) {
   // write your code in JavaScript (Node.js 8.9.4)
-  let u = "";
+  let u = [];
   let un = 0;
-  let l = "";
+  let l = [];
   let ln = 0;
   for (let i = 0; i < C.length; i++) {
     switch (C[i]) {
       case 0:
-        u += 0;
-        l += 0;
+        u.push(0);
+        l.push(0);
         break;
       case 1:
         if (un + 1 <= U) {
-          u += 1;
+          u.push(1);
           un += 1;
-          l += 0;
+          l.push(0);
         } else if (ln + 1 <= L) {
-          l += 1;
+          l.push(1);
           ln += 1;
-          u += 0;
+          u.push(0);
         } else {
           return "IMPOSSIBLE";
         }
         break;
       case 2:
-        u += 1;
+        u.push(1);
         un += 1;
-        l += 1;
+        l.push(1);
         ln += 1;
         break;
       default:
         break;
     }
   }
-  if (un === U && ln === L) return u + "," + l;
-  if (ln === U && un === L) return l + "," + u;
+  if (un === U && ln === L) return u.join("") + "," + l.join("");
+  if (ln === U && un === L) return l.join("") + "," + u.join("");
+  let diff = Math.abs(un - U);
+  for (let i = 0; i < C.length; i++) {
+    if (C[i] === 1) {
+      u[i] = Number(u[i]) ? 0 : 1;
+      l[i] = Number(l[i]) ? 0 : 1;
+      diff--;
+    }
+    if (!diff) {
+      break;
+    }
+  }
+  if (!diff) {
+    return u.join("") + "," + l.join("");
+  }
   return "IMPOSSIBLE";
 }
 
@@ -58,16 +72,22 @@ function randomNumber(min, max) {
 //     .fill()
 //     .map((_, i) => Math.round(randomNumber(0, 1)))
 // );
+
 // let bot = shuffleArray(
 //   Array(5)
 //     .fill()
 //     .map((_, i) => Math.round(randomNumber(0, 1)))
 // );
+
 // top = [0, 0, 1, 1, 1];
 // bot = [1, 1, 1, 0, 1];
-// bot
+
 // top = [1,1,0,0,1]
 // bot = [1,0,1,0,0]
+
+// top = [0, 0, 0, 1, 1];
+// bot = [0, 1, 0, 0, 1];
+
 // let c = top.map((v, i) => v + bot[i]);
 // c;
 // let u = top.reduce((acc, val) => acc + val, 0);
