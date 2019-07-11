@@ -34,15 +34,30 @@ function solution(S, P, Q) {
         break;
     }
   }
-  let result = [];
+  const result = [];
   for (let j = 0; j < P.length; j++) {
     const indexp = P[j];
     const indexq = Q[j];
-    if (countA[indexp] - countA[indexq] !== 0) {
+    if (indexp === indexq) {
+      switch (S[indexp]) {
+        case "A":
+          result.push(1);
+          break;
+        case "C":
+          result.push(2);
+          break;
+        case "G":
+          result.push(3);
+          break;
+        default:
+          result.push(4);
+          break;
+      }
+    } else if ((countA[indexp - 1] || 0) - countA[indexq] !== 0) {
       result.push(1);
-    } else if (countC[indexp] - countC[indexq] !== 0) {
+    } else if ((countC[indexp - 1] || 0) - countC[indexq] !== 0) {
       result.push(2);
-    } else if (countG[indexp] - countG[indexq] !== 0) {
+    } else if ((countG[indexp - 1] || 0) - countG[indexq] !== 0) {
       result.push(3);
     } else {
       result.push(4);
@@ -51,5 +66,16 @@ function solution(S, P, Q) {
   return result;
 }
 
-let a = solution("CAGCCTA", [2, 5, 0], [4, 5, 6]);
-a; // [2,4,1]
+// let a;
+// a = solution("CAGCCTA", [2, 5, 0], [4, 5, 6]);
+// a; // [2,4,1]
+// a = solution("A", [0], [0]);
+// a; // 1
+// a = solution("C", [0], [0]);
+// a; // 2
+// a = solution("G", [0], [0]);
+// a; // 3
+// a = solution("T", [0], [0]);
+// a; // 4
+// a = solution("AC", [0, 0, 1], [0, 1, 1]);
+// a; // [1,1,2]
