@@ -4,24 +4,32 @@
 function solution(A, B, K) {
   // write your code in JavaScript (Node.js 8.9.4)
   let i = A;
+  let j = B;
   let count = 0;
-  while (i < B + 1) {
-    const result = i % K;
+  while (i <= j) {
+    let skipj = i === j;
+    let result = i % K;
     if (result === 0) {
       count++;
       i += K;
+    } else if (i < K) {
+      i += Math.abs(i - K);
     } else {
-      if (i < K) {
-        i += Math.abs(i - K);
-      } else {
-        i += result;
-      }
+      i += result;
+    }
+    if (skipj) continue;
+    result = j % K;
+    if (result === 0) {
+      count++;
+      j -= K;
+    } else if (j < K) {
+      j -= Math.abs(j - K);
+    } else {
+      j -= result;
     }
   }
   return count;
 }
-
-console.log(11 % 17);
 
 let a;
 a = solution(6, 11, 2);
